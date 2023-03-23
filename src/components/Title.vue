@@ -1,0 +1,1 @@
+<!-- will need to add a title component to update the title of the page depending of the navigation -->
