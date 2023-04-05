@@ -140,11 +140,11 @@ export const useHouseStore = defineStore("house", {
       console.log("data", data);
     },
 
-    async editHouse(houseId) {
+    async editHouse(houseId, formdata) {
       var requestOptionsEdit = {
         method: "POST",
         headers: myHeaders,
-        body: fd,
+        body: formdata,
         redirect: "follow",
       };
 

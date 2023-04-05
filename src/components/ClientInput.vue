@@ -1,52 +1,31 @@
 <script setup>
-import { computed, ref } from "vue";
-import { useHouseStore } from "../stores/houses";
-import GoBackGrey from "./GoBackGrey.vue";
-const store = useHouseStore();
+// defineProps([]) allows to use the data in the template. to be able to use it in Js, values needs to be assigned to const.
+const { houseSelected, formSubmitted, fileSubmitted } = defineProps([
+  "houseSelected",
+  "formSubmitted",
+  "fileSubmitted",
+]);
 
-const houses = computed(() => {
-  return store.houses;
-});
-
-const file = computed(() => {
-  return store.file;
-});
-
-const complete = ref(false);
-
-const onFileChanged = (event) => {
-  const photo = event.target.files[0];
-  const file = new File([photo], photo.name);
-  store.image = file;
-};
-
-const onSubmit = (data) => {
-  console.log({ data });
-
-  const formData = new FormData();
-
-  Object.keys(data).forEach((key) => {
-    formData.append(key, data[key]);
-  });
-
-  //formdata console log will return empty, to get the data inside, see code bellow
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
-
-  store.createHouse(formData);
+//location street is a string that contains three values, streetname, additional number and house number. -> need to split the string
+console.log("houseSelectedClient", { ...houseSelected });
+const initialValues = {
+  streetName: houseSelected.location.street,
+  zip: houseSelected.location.zip,
+  city: houseSelected.location.city,
+  size: houseSelected.size,
+  price: houseSelected.price,
+  garage: houseSelected.garage,
+  bedrooms: houseSelected.rooms.bedrooms,
+  bathrooms: houseSelected.rooms.bathrooms,
+  description: houseSelected.description,
+  constructionYear: houseSelected.constructionYear,
 };
 </script>
 
 
 <template>
-  <div>
-    <div>
-      <GoBackGrey />
-      <h2>Create new listing</h2>
-    </div>
-    <FormKit type="form" @submit="onSubmit">
-      <label>test</label>
+  <div class="form-wrapper">
+    <FormKit type="form" @submit="formSubmitted" :value="initialValues">
       <FormKit
         type="text"
         name="streetName"
@@ -58,7 +37,6 @@ const onSubmit = (data) => {
 
       <FormKit
         type="text"
-        s
         name="houseNumber"
         id="houseNumber"
         label="House number*"
@@ -93,7 +71,8 @@ const onSubmit = (data) => {
       />
 
       <label>Upload picture (PNG or JPG)*</label>
-      <input type="file" @change="onFileChanged" name="image" ref="fileInput" />
+      <input type="file" @change="fileSubmitted" name="image" ref="fileInput" />
+
       <!-- <FormKit
         type="file"
         label="Upload picture (PNG or JPG)*"
@@ -166,6 +145,7 @@ const onSubmit = (data) => {
         placeholder="Enter description"
         validation="required"
       />
+      <!-- <Button name="POST" /> -->
     </FormKit>
 
     <!-- <form @submit.prevent="onSubmit">
@@ -245,3 +225,9 @@ const onSubmit = (data) => {
     </form> -->
   </div>
 </template>
+
+<style scoped>
+.form-wrapper {
+  margin-bottom: 5rem;
+}
+</style>

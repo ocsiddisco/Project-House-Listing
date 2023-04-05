@@ -39,7 +39,9 @@ const store = useHouseStore;
         <div>
           <p>{{ house.location.street }}</p>
           <div v-if="house.madeByMe === true">
-            <img src="@/assets/ic_edit@3x.png" style="width: 20px" alt="" />
+            <router-link :to="{ path: `/house/${house.id}/edit` }">
+              <img src="@/assets/ic_edit@3x.png" style="width: 20px" alt="" />
+            </router-link>
             <img
               src="@/assets/ic_delete@3x.png"
               style="width: 20px"

@@ -50,7 +50,13 @@ const backgroundImage = computed(() => {
       <template #left> <GoBackWhite /></template>
       <template #right>
         <div v-if="houseSelected.madeByMe === true">
-          <img src="@/assets/ic_edit_white@3x.png" style="width: 20px" alt="" />
+          <router-link :to="{ path: `/house/${houseSelected.id}/edit` }">
+            <img
+              src="@/assets/ic_edit_white@3x.png"
+              style="width: 20px"
+              alt=""
+            />
+          </router-link>
           <img
             src="@/assets/ic_delete_white@3x.png"
             style="width: 20px"

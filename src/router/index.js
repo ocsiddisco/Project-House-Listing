@@ -29,17 +29,16 @@ const router = createRouter({
       path: "/house/:id",
       name: "house",
       component: HouseView,
-      children: [
-        {
-          path: "/edit",
-          component: EditView,
-        },
-      ],
     },
     {
       path: "/:catchAll(.*)*",
       name: "PageNotFound",
       component: PageNotFoundView,
+    },
+    {
+      path: "/house/:id/edit",
+      name: "edit",
+      component: EditView,
     },
   ],
 });

@@ -39,8 +39,8 @@ console.log(store.houses);
       <img src="@/assets/ic_clear@3x.png" style="width: 20px" alt="" />
     </div>
     <div classs="third-lign">
-      <button class="button" @click="sortByPrice()">Price</button>
-      <button class="button" @click="sortBySize()">Size</button>
+      <button class="button" @click="sortByPrice">Price</button>
+      <button class="button" @click="sortBySize">Size</button>
     </div>
     <h2>{{ count }}</h2>
 
