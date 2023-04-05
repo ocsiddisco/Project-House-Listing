@@ -1,6 +1,6 @@
 <script setup>
 import { useHouseStore } from "../stores/houses";
-import Card from "./JustCard.vue";
+import Card from "./Card.vue";
 import { ref, onMounted, computed, watch } from "vue";
 
 const store = useHouseStore();
@@ -28,29 +28,41 @@ const sortByPrice = computed(() => {
 const sortBySize = computed(() => {
   return store.sortBySize;
 });
+console.log(store.houses);
 </script>
 
 <template>
   <div class="container-cards">
     <div class="container-input">
+      <img src="@/assets/ic_search@3x.png" style="width: 20px" alt="" />
       <input v-model="search" type="text" placeholder="Search" />
+      <img src="@/assets/ic_clear@3x.png" style="width: 20px" alt="" />
     </div>
     <div classs="third-lign">
       <button class="button" @click="sortByPrice()">Price</button>
       <button class="button" @click="sortBySize()">Size</button>
     </div>
-    <div v-for="house in store.houses" :key="house.id" class="container-card">
-      <h2>{{ count }}</h2>
+    <h2>{{ count }}</h2>
+
+    <div
+      v-for="house in store.houses.filter(
+        (house) =>
+          house.location.street ||
+          house.location.city ||
+          house.price ||
+          house.size ||
+          house.zip.toLowerCase().includes(search.toLowerCase())
+      )"
+      :key="house.id"
+      class="container-card"
+    >
+      <!-- <router-link :to="{ path: `/house/${house.id}` }"> -->
       <Card :house="house" />
+      <!-- </router-link> -->
     </div>
     <div class="no-house" v-if="input && !houses.length">
       <!-- redirect to error page -->
       No result found
-    </div>
-    <!-- must be visible only if you are the owner of the listing -->
-    <div>
-      <h4><img edit />Edit</h4>
-      <h4><img delete />Delete</h4>
     </div>
   </div>
 </template>

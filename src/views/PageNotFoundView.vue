@@ -1,5 +1,6 @@
 <template>
   <div>
     <h1>404 - Page not Found</h1>
+    <NavBar :active="'home'" />
   </div>
 </template>

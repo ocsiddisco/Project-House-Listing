@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useHouseStore } from "../stores/houses";
+import GoBackGrey from "./GoBackGrey.vue";
 const store = useHouseStore();
 
 const houses = computed(() => {
@@ -40,6 +41,10 @@ const onSubmit = (data) => {
 
 <template>
   <div>
+    <div>
+      <GoBackGrey />
+      <h2>Create new listing</h2>
+    </div>
     <FormKit type="form" @submit="onSubmit">
       <label>test</label>
       <FormKit

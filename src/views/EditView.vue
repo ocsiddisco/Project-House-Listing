@@ -1,19 +1,19 @@
 <script setup>
-import InputForm from "../components/InputForm.vue";
-import NavBar from "../components/NavBar.vue";
 import GoBackGrey from "../components/GoBackGrey.vue";
 import Header from "../components/Header.vue";
+import InputFormCopy from "../components/InputFormCopy.vue";
+import NavBar from "../components/NavBar.vue";
 </script>
 
 <template>
   <div class="container">
-    <Header title="Create new listing">
+    <Header title="Edit listing">
       <template #left>
         <GoBackGrey />
       </template>
       <template #right></template>
     </Header>
-    <InputForm />
+    <InputFormCopy />
     <NavBar :active="'home'" />
   </div>
 </template>

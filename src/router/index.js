@@ -3,6 +3,8 @@ import HomeView from "../views/HomeView.vue";
 import HouseView from "../views/HouseDetailView.vue";
 import FormView from "../views/FormView.vue";
 import AboutView from "../views/AboutView.vue";
+import EditView from "../views/EditView.vue";
+
 import PageNotFoundView from "../views/PageNotFoundView.vue";
 
 const router = createRouter({
@@ -27,6 +29,12 @@ const router = createRouter({
       path: "/house/:id",
       name: "house",
       component: HouseView,
+      children: [
+        {
+          path: "/edit",
+          component: EditView,
+        },
+      ],
     },
     {
       path: "/:catchAll(.*)*",
