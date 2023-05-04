@@ -1,12 +1,12 @@
 <script setup>
 import { useHouseStore } from "../stores/houses";
-import { ref, onMounted, computed, watch } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Card from "@/components/Card.vue";
 import Modal from "@/components/Modal.vue";
+import { createConfirmDialog } from "vuejs-confirm-dialog";
 import NavBar from "../components/NavBar.vue";
 import Header from "../components/Header.vue";
-import { createConfirmDialog } from "vuejs-confirm-dialog";
 import GoBackWhite from "../components/GoBackWhite.vue";
 
 const store = useHouseStore();
@@ -33,7 +33,7 @@ defineProps(["house"]);
 
 onConfirm(() => {
   store.delete(houseId);
-  console.log("house deleted");
+  console.log("house deleted here");
 });
 
 console.log("filteredHouses", filteredHouses);
@@ -45,28 +45,35 @@ const backgroundImage = computed(() => {
 
 
 <template>
-  <div class="container" :style="{ 'background-image': backgroundImage }">
-    <Header title="">
-      <template #left> <GoBackWhite /></template>
-      <template #right>
-        <div v-if="houseSelected.madeByMe === true">
-          <router-link :to="{ path: `/house/${houseSelected.id}/edit` }">
+  <div class="container">
+    <div
+      class="container-image"
+      :style="{
+        'background-image': backgroundImage,
+      }"
+    >
+      <Header title="">
+        <template #left> <GoBackWhite /></template>
+        <template #right>
+          <div v-if="houseSelected.madeByMe === true">
+            <router-link :to="{ path: `/house/${houseSelected.id}/edit` }">
+              <img
+                src="@/assets/ic_edit_white@3x.png"
+                style="width: 20px"
+                alt=""
+              />
+            </router-link>
             <img
-              src="@/assets/ic_edit_white@3x.png"
+              src="@/assets/ic_delete_white@3x.png"
               style="width: 20px"
               alt=""
+              @click="reveal"
             />
-          </router-link>
-          <img
-            src="@/assets/ic_delete_white@3x.png"
-            style="width: 20px"
-            alt=""
-            @click="reveal"
-          />
-        </div>
-      </template>
-    </Header>
-    <DialogsWrapper />
+          </div>
+        </template>
+      </Header>
+      <DialogsWrapper />
+    </div>
     <div>
       <h2>{{ houseSelected.location.street }}</h2>
       <div>
@@ -113,7 +120,15 @@ const backgroundImage = computed(() => {
 </template>
 
 <style scoped>
+.container {
+  width: 100%;
+}
+
+.container-image {
+  width: 100%;
+  height: 50%;
+}
 img {
-  width: 100vw;
+  width: 10vw;
 }
 </style>

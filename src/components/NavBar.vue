@@ -39,13 +39,15 @@ const imageHome = computed(() => {
 .container {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   width: 100vw;
-  height: 10vh;
+  height: 6vh;
   position: fixed;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255);
   overflow: hidden;
   z-index: 200;
   left: 0;
   bottom: 0;
+  box-shadow: 0px -5px 15px 0px rgba(183, 183, 183, 0.75);
 }
 </style>

@@ -31,7 +31,7 @@ const onSubmit = (data) => {
     console.log(pair[0] + ", " + pair[1]);
   }
 
-  store.editHouse(formData, houseId);
+  store.editHouse(houseId, formData);
 };
 </script>
 

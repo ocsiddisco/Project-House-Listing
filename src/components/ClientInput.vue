@@ -6,20 +6,26 @@ const { houseSelected, formSubmitted, fileSubmitted } = defineProps([
   "fileSubmitted",
 ]);
 
-//location street is a string that contains three values, streetname, additional number and house number. -> need to split the string
-console.log("houseSelectedClient", { ...houseSelected });
-const initialValues = {
-  streetName: houseSelected.location.street,
-  zip: houseSelected.location.zip,
-  city: houseSelected.location.city,
-  size: houseSelected.size,
-  price: houseSelected.price,
-  garage: houseSelected.garage,
-  bedrooms: houseSelected.rooms.bedrooms,
-  bathrooms: houseSelected.rooms.bathrooms,
-  description: houseSelected.description,
-  constructionYear: houseSelected.constructionYear,
-};
+let initialValues = {};
+
+if (houseSelected) {
+  const street = houseSelected.location.street;
+  const [streetName, houseNumber, additionalNumber] = street.split(" ");
+  initialValues = {
+    streetName: streetName,
+    houseNumber: houseNumber,
+    numberAddition: additionalNumber,
+    zip: houseSelected.location.zip,
+    city: houseSelected.location.city,
+    size: houseSelected.size,
+    price: houseSelected.price,
+    garage: houseSelected.garage,
+    bedrooms: houseSelected.rooms.bedrooms,
+    bathrooms: houseSelected.rooms.bathrooms,
+    description: houseSelected.description,
+    constructionYear: houseSelected.constructionYear,
+  };
+}
 </script>
 
 

@@ -14,9 +14,3 @@ createApp(App)
   .use(ConfirmDialog)
   .use(plugin, defaultConfig)
   .mount("#app");
-
-// const app = createApp(App)
-
-// app.
-
-// app.mount('#app')

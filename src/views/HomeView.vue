@@ -23,7 +23,8 @@ import ImageAdd from "../assets/ic_plus_grey@3x.png";
 
 <style scoped>
 .container {
-  width: 100vw;
+  width: 100%;
+  background-color: #f6f6f6;
 }
 
 .container-title {
@@ -40,15 +41,6 @@ import ImageAdd from "../assets/ic_plus_grey@3x.png";
 .third-lign {
   display: flex;
   justify-content: center;
-}
-
-.container-input {
-  display: flex;
-  justify-content: center;
-}
-
-input {
-  width: 80%;
 }
 
 .button {

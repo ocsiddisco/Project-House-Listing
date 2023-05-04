@@ -92,16 +92,17 @@ export const useHouseStore = defineStore("house", {
       }
     },
 
-    async createHouse(fd) {
+    async createHouse(formData) {
       var requestOptionsCreate = {
         method: "POST",
         headers: myHeaders,
-        body: fd,
+        body: formData,
         redirect: "follow",
       };
 
       try {
         const response = await fetch(houses_url, requestOptionsCreate);
+        console.log("reseponse create", response);
         const data = await response.text();
         const parsedData = JSON.parse(data);
         console.log("data", parsedData);
@@ -124,7 +125,7 @@ export const useHouseStore = defineStore("house", {
     },
 
     async delete(houseId) {
-      console.log("here");
+      console.log("delete here");
       var requestOptionsDelete = {
         method: "DELETE",
         headers: myHeaders,
@@ -140,11 +141,16 @@ export const useHouseStore = defineStore("house", {
       console.log("data", data);
     },
 
-    async editHouse(houseId, formdata) {
+    async editHouse(houseId, formData) {
+      console.log("houseID House", houseId);
+
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
       var requestOptionsEdit = {
         method: "POST",
         headers: myHeaders,
-        body: formdata,
+        body: formData,
         redirect: "follow",
       };
 
@@ -153,14 +159,17 @@ export const useHouseStore = defineStore("house", {
           `${houses_url}/${houseId}`,
           requestOptionsEdit
         );
+        console.log("response", response);
         const data = await response.text();
-        const parsedData = JSON.parse(data);
-        console.log("data", parsedData);
+        console.log("data", data);
+
+        // const parsedData = JSON.parse(data);
+        // console.log("parsedData", parsedData);
 
         // add newly created house
-        if (parsedData.id != undefined) {
-          this.uploadPhoto(parsedData.id);
-        }
+        // if (parsedData.id != undefined) {
+        //   this.uploadPhoto(parsedData.id);
+        // }
         this.houses.push(data);
         // or fetch again full collection
         // fetchHouses()
