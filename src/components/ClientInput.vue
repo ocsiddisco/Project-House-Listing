@@ -30,56 +30,62 @@ if (houseSelected) {
 
 
 <template>
-  <div class="form-wrapper">
-    <FormKit type="form" @submit="formSubmitted" :value="initialValues">
-      <FormKit
-        type="text"
-        name="streetName"
-        id="streetName"
-        label="Street name*"
-        placeholder="Enter your street name"
-        validation="required"
-      />
+  <div class="container">
+    <div class="form-wrapper">
+      <FormKit type="form" @submit="formSubmitted" :value="initialValues">
+        <FormKit
+          type="text"
+          name="streetName"
+          id="streetName"
+          label="Street name*"
+          placeholder="Enter your street name"
+          validation="required"
+        />
 
-      <FormKit
-        type="text"
-        name="houseNumber"
-        id="houseNumber"
-        label="House number*"
-        placeholder="Enter house number"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="houseNumber"
+          id="houseNumber"
+          label="House number*"
+          placeholder="Enter house number"
+          validation="required"
+        />
 
-      <FormKit
-        type="text"
-        name="numberAddition"
-        id="numberAddition"
-        label="Addition (optional)"
-        placeholder="e.g A"
-      />
+        <FormKit
+          type="text"
+          name="numberAddition"
+          id="numberAddition"
+          label="Addition (optional)"
+          placeholder="e.g A"
+        />
 
-      <FormKit
-        type="text"
-        name="zip"
-        id="zip"
-        label="Postal code*"
-        placeholder="e.g 1000AA"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="zip"
+          id="zip"
+          label="Postal code*"
+          placeholder="e.g 1000AA"
+          validation="required"
+        />
 
-      <FormKit
-        type="text"
-        name="city"
-        id="city"
-        label="City*"
-        placeholder="e.g Utrecht"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="city"
+          id="city"
+          label="City*"
+          placeholder="e.g Utrecht"
+          validation="required"
+        />
 
-      <label>Upload picture (PNG or JPG)*</label>
-      <input type="file" @change="fileSubmitted" name="image" ref="fileInput" />
+        <label>Upload picture (PNG or JPG)*</label>
+        <input
+          type="file"
+          @change="fileSubmitted"
+          name="image"
+          ref="fileInput"
+        />
 
-      <!-- <FormKit
+        <!-- <FormKit
         type="file"
         label="Upload picture (PNG or JPG)*"
         name="image"
@@ -88,73 +94,73 @@ if (houseSelected) {
         @change="onFileChanged"
       />  -->
 
-      <FormKit
-        type="text"
-        name="price"
-        id="price"
-        label="Price*"
-        placeholder="e.g E150000"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="price"
+          id="price"
+          label="Price*"
+          placeholder="e.g E150000"
+          validation="required"
+        />
 
-      <FormKit
-        type="text"
-        name="size"
-        id="size"
-        label="Size*"
-        placeholder="e.g 60m2"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="size"
+          id="size"
+          label="Size*"
+          placeholder="e.g 60m2"
+          validation="required"
+        />
 
-      <FormKit
-        type="select"
-        name="garage"
-        id="garage"
-        label="Garage*"
-        placeholder="Select"
-        validation="required"
-        :options="['Yes', 'No']"
-      />
+        <FormKit
+          type="select"
+          name="garage"
+          id="garage"
+          label="Garage*"
+          placeholder="Select"
+          validation="required"
+          :options="['Yes', 'No']"
+        />
 
-      <FormKit
-        type="text"
-        name="bedrooms"
-        id="bedrooms"
-        label="Bedrooms*"
-        placeholder="Enter amout"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="bedrooms"
+          id="bedrooms"
+          label="Bedrooms*"
+          placeholder="Enter amout"
+          validation="required"
+        />
 
-      <FormKit
-        type="text"
-        name="bathrooms"
-        id="bathrooms"
-        label="Bathrooms*"
-        placeholder="Enter amout"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="bathrooms"
+          id="bathrooms"
+          label="Bathrooms*"
+          placeholder="Enter amout"
+          validation="required"
+        />
 
-      <FormKit
-        type="text"
-        name="constructionYear"
-        id="constructionYear"
-        label="Contruction data*"
-        placeholder="e.g 1990"
-        validation="required"
-      />
+        <FormKit
+          type="text"
+          name="constructionYear"
+          id="constructionYear"
+          label="Contruction data*"
+          placeholder="e.g 1990"
+          validation="required"
+        />
 
-      <FormKit
-        type="textarea"
-        name="description"
-        id="description"
-        label="Description*"
-        placeholder="Enter description"
-        validation="required"
-      />
-      <!-- <Button name="POST" /> -->
-    </FormKit>
+        <FormKit
+          type="textarea"
+          name="description"
+          id="description"
+          label="Description*"
+          placeholder="Enter description"
+          validation="required"
+        />
+        <!-- <Button name="POST" /> -->
+      </FormKit>
 
-    <!-- <form @submit.prevent="onSubmit">
+      <!-- <form @submit.prevent="onSubmit">
       <label>Street name*</label>
       <input
         type="text"
@@ -229,11 +235,19 @@ if (houseSelected) {
 
       <button type="submit">POST</button>
     </form> -->
+    </div>
   </div>
 </template>
 
 <style scoped>
+.container {
+  display: flex;
+  width: 80vw;
+}
 .form-wrapper {
+  display: flex;
+  align-self: center;
+
   margin-bottom: 5rem;
 }
 </style>

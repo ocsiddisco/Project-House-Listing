@@ -1,57 +1,57 @@
 <script setup>
 import { useHouseStore } from "../stores/houses";
-import { computed } from "vue";
+import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
-import Card from "@/components/Card.vue";
 import Modal from "@/components/Modal.vue";
+import Details from "@/components/Details.vue";
+import Recommanded from "@/components/Recommanded.vue";
+
 import { createConfirmDialog } from "vuejs-confirm-dialog";
 import NavBar from "../components/NavBar.vue";
 import Header from "../components/Header.vue";
 import GoBackWhite from "../components/GoBackWhite.vue";
 
+onMounted(() => {
+  store.fetchHouses();
+});
+
 const store = useHouseStore();
+const route = useRoute();
 
 const houses = computed(() => {
   return store.houses;
 });
 
-const route = useRoute();
-
 const houseId = parseInt(route.params.id);
 
-const houseSelected = store.houses.find((h) => h.id === houseId);
+const houseSelected = computed(() => {
+  return store.houses.find((h) => h.id === houseId);
+});
 
-console.log("houseSelected", houseSelected);
-
-const filteredHouses = store.houses.filter(function (h) {
-  return h.location.city === houseSelected.location.city;
+const filteredHouses = computed(() => {
+  return houses.value.filter((house) => {
+    return house.location.city === houseSelected?.location?.city;
+  });
 });
 
 const { reveal, onConfirm } = createConfirmDialog(Modal);
-
-defineProps(["house"]);
 
 onConfirm(() => {
   store.delete(houseId);
   console.log("house deleted here");
 });
-
-console.log("filteredHouses", filteredHouses);
-
-const backgroundImage = computed(() => {
-  return `url(${houseSelected.image})`;
-});
 </script>
 
 
 <template>
-  <div class="container">
-    <div
-      class="container-image"
-      :style="{
-        'background-image': backgroundImage,
-      }"
-    >
+  <div
+    v-if="!!houseSelected"
+    class="container"
+    :style="{
+      'background-image': `url(${houseSelected.image})`,
+    }"
+  >
+    <div class="container-top">
       <Header title="">
         <template #left> <GoBackWhite /></template>
         <template #right>
@@ -74,61 +74,47 @@ const backgroundImage = computed(() => {
       </Header>
       <DialogsWrapper />
     </div>
-    <div>
-      <h2>{{ houseSelected.location.street }}</h2>
-      <div>
-        <img src="@/assets/ic_location@3x.png" style="width: 20px" alt="" />
-
-        <h2>{{ houseSelected.location.zip }}</h2>
-        <h2>{{ houseSelected.location.city }}</h2>
-      </div>
-      <div>
-        <img src="@/assets/ic_price@3x.png" style="width: 20px" alt="" />
-        <h4>{{ houseSelected.price }}</h4>
-        <img src="@/assets/ic_size@3x.png" style="width: 20px" alt="" />
-        <h4>{{ houseSelected.size }}</h4>
-        <img
-          src="@/assets/ic_construction_date@3x.png"
-          style="width: 20px"
-          alt=""
-        />
-        <h4>Build in {{ houseSelected.constructionYear }}</h4>
-      </div>
-      <div>
-        <img src="@/assets/ic_bed@3x.png" style="width: 20px" alt="" />
-        <h4>{{ houseSelected.rooms.bedrooms }}</h4>
-        <img src="@/assets/ic_bath@3x.png" style="width: 20px" alt="" />
-        <h4>{{ houseSelected.rooms.bathrooms }}</h4>
-        <img src="@/assets/ic_garage@3x.png" style="width: 20px" alt="" />
-        <h4 v-if="houseSelected.hasGarage">Yes</h4>
-        <h4 v-else>No</h4>
-      </div>
-      <h3>{{ houseSelected.description }}</h3>
-    </div>
-
-    <!-- similar houses -->
-    <div>
-      <h4>Recommanded for you</h4>
-      <div v-for="house in filteredHouses" :key="house.id">
-        <!-- <router-link :to="{ path: `/house/${house.id}` }"> -->
-        <Card :house="house" />
-        <!-- </router-link> -->
-      </div>
-    </div>
+    <Details v-if="!!houseSelected" :houseSelected="houseSelected" />
+    <Recommanded v-if="!!filteredHouses" :filteredHouses="filteredHouses" />
     <NavBar :active="'home'" />
   </div>
 </template>
 
 <style scoped>
 .container {
-  width: 100%;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -1;
 }
 
-.container-image {
-  width: 100%;
-  height: 50%;
+.container-top {
 }
+
 img {
   width: 10vw;
+  padding-right: 10px;
+}
+
+h4 {
+  padding-right: 10px;
+}
+
+.container-recommendation {
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f6f6;
+  margin-bottom: 40px;
+}
+
+.recommendation-inside {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 80vw;
+}
+
+.text-decoration {
+  text-decoration: none;
 }
 </style>

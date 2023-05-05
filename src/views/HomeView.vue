@@ -3,6 +3,22 @@ import NavBar from "../components/NavBar.vue";
 import ListCard from "../components/ListCard.vue";
 import Header from "../components/Header.vue";
 import ImageAdd from "../assets/ic_plus_grey@3x.png";
+import { useHouseStore } from "../stores/houses";
+import { onMounted, computed } from "vue";
+
+const store = useHouseStore();
+
+onMounted(() => {
+  store.fetchHouses();
+});
+
+const houses = computed(() => {
+  return store.houses;
+});
+
+const count = computed(() => {
+  return store.count;
+});
 </script>
 
 <template>
@@ -15,7 +31,7 @@ import ImageAdd from "../assets/ic_plus_grey@3x.png";
         </router-link>
       </template>
     </Header>
-    <ListCard />
+    <ListCard v-if="!!houses.length" :houses="houses" :count="count" />
     <NavBar :active="'home'" />
   </div>
 </template>
@@ -24,7 +40,6 @@ import ImageAdd from "../assets/ic_plus_grey@3x.png";
 <style scoped>
 .container {
   width: 100%;
-  background-color: #f6f6f6;
 }
 
 .container-title {

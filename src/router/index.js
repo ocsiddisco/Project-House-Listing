@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import HouseView from "../views/HouseDetailView.vue";
+import HouseDetailView from "../views/HouseDetailView.vue";
 import FormView from "../views/FormView.vue";
 import AboutView from "../views/AboutView.vue";
 import EditView from "../views/EditView.vue";
@@ -28,7 +28,7 @@ const router = createRouter({
     {
       path: "/house/:id",
       name: "house",
-      component: HouseView,
+      component: HouseDetailView,
     },
     {
       path: "/:catchAll(.*)*",

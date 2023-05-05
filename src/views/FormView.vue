@@ -20,6 +20,8 @@ import Header from "../components/Header.vue";
 
 <style scoped>
 .container {
-  background-color: #f6f6f6;
+  background-image: url("img_placeholder_house@3x.png");
+  background-attachment: fixed;
+  background-position: bottom;
 }
 </style>

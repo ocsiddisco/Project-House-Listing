@@ -1,39 +1,25 @@
 <script setup>
 import { useHouseStore } from "../stores/houses";
 import Card from "./Card.vue";
-import { ref, onMounted, computed } from "vue";
-
+import { ref, computed } from "vue";
 const store = useHouseStore();
 
-onMounted(() => {
-  store.fetchHouses();
-});
-const getHouses = computed(() => {
-  return store.getHouses;
-});
-
-const houses = computed(() => {
-  return store.houses;
-});
+defineProps(["houses", "count"]);
 
 let input = ref("");
 
-const filteredHouses = computed(() => {
-  const filterText = input.value.toLowerCase().trim();
-  return houses.value.filter((house) => {
-    return (
-      house.location.street.toLowerCase().includes(filterText) ||
-      house.location.city.toLowerCase().includes(filterText) ||
-      house.location.zip.toLowerCase().includes(filterText) ||
-      house.price.toString().includes(filterText) ||
-      house.size.toString().includes(filterText)
-    );
-  });
-});
-
-const count = computed(() => {
-  return store.count;
-});
+// const filteredHouses = computed(() => {
+//   const filterText = input.value.toLowerCase().trim();
+//   return houses.value.filter((house) => {
+//     return (
+//       house.location.street.toLowerCassse().includes(filterText) ||
+//       house.location.city.toLowerCase().includes(filterText) ||
+//       house.location.zip.toLowerCase().includes(filterText) ||
+//       house.price.toString().includes(filterText) ||
+//       house.size.toString().includes(filterText)
+//     );
+//   });
+// });
 
 const sortByPrice = computed(() => {
   return store.sortByPrice;
@@ -70,13 +56,15 @@ const sortBySize = computed(() => {
       <h2>{{ count }} results founds</h2>
     </div>
 
-    <div v-for="house in filteredHouses" :key="house.id" class="container-card">
-      <!-- <router-link :to="{ path: `/house/${house.id}` }"> -->
+    <div v-for="house in houses" :key="house.id" class="container-card">
+      <!-- router link commented as I want to use it in Card component -->
+      <!-- <router-link :to="{ path: `/house/${house.id}` }" class="text-decoration"> -->
       <Card :house="house" />
       <!-- </router-link> -->
     </div>
+
+    <!-- redirect to error information -->
     <div class="no-house" v-if="input && !filteredHouses.length">
-      <!-- redirect to error page -->
       <img
         class="img-empty-house"
         src="@/assets/img_empty_houses@3x.png"
@@ -94,6 +82,7 @@ const sortBySize = computed(() => {
   align-items: center;
   flex-direction: column;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .container-input {
@@ -152,10 +141,22 @@ input {
 
 .orange {
   background-color: #eb5440;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .grey {
   background-color: #c3c3c3;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .container-count {
