@@ -22,6 +22,7 @@ import Header from "../components/Header.vue";
 .container {
   background-image: url("img_placeholder_house@3x.png");
   background-attachment: fixed;
-  background-position: bottom;
+  background-position: top;
+  width: 100%;
 }
 </style>

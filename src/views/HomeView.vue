@@ -15,10 +15,6 @@ onMounted(() => {
 const houses = computed(() => {
   return store.houses;
 });
-
-const count = computed(() => {
-  return store.count;
-});
 </script>
 
 <template>
@@ -31,7 +27,7 @@ const count = computed(() => {
         </router-link>
       </template>
     </Header>
-    <ListCard v-if="!!houses.length" :houses="houses" :count="count" />
+    <ListCard v-if="!!houses.length" :houses="houses" />
     <NavBar :active="'home'" />
   </div>
 </template>

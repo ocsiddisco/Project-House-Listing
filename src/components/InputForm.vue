@@ -39,7 +39,13 @@ const onSubmit = (data) => {
 
 
 <template>
-  <div>
+  <div class="container-inputform">
     <ClientInput :formSubmitted="onSubmit" :fileSubmitted="onFileChanged" />
   </div>
 </template>
+
+<style scopde>
+.container-inputform {
+  width: 100%;
+}
+</style>

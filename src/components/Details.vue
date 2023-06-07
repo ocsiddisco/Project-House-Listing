@@ -57,7 +57,7 @@ defineProps(["houseSelected"]);
         <h4 v-if="houseSelected.hasGarage">Yes</h4>
         <h4 v-else>No</h4>
       </div>
-      <h3>{{ houseSelected.description }}</h3>
+      <h3 class="text-description">{{ houseSelected.description }}</h3>
     </div>
   </div>
 </template>
@@ -93,5 +93,18 @@ defineProps(["houseSelected"]);
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+img,
+h2,
+h3,
+h4 {
+  margin-right: 10px;
+}
+
+.text-description {
+  margin: 0;
+  font-weight: 500;
+  text-align: justify;
 }
 </style>

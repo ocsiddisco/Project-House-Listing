@@ -1,33 +1,49 @@
 <script setup>
-import { useHouseStore } from "../stores/houses";
 import Card from "./Card.vue";
 import { ref, computed } from "vue";
-const store = useHouseStore();
 
-defineProps(["houses", "count"]);
+const props = defineProps({
+  houses: Array,
+});
+console.log("props houses", props.houses);
 
 let input = ref("");
+let sortBy = ref(""); // Added a reactive variable to keep track of the sort option
 
-// const filteredHouses = computed(() => {
-//   const filterText = input.value.toLowerCase().trim();
-//   return houses.value.filter((house) => {
-//     return (
-//       house.location.street.toLowerCassse().includes(filterText) ||
-//       house.location.city.toLowerCase().includes(filterText) ||
-//       house.location.zip.toLowerCase().includes(filterText) ||
-//       house.price.toString().includes(filterText) ||
-//       house.size.toString().includes(filterText)
-//     );
-//   });
-// });
-
-const sortByPrice = computed(() => {
-  return store.sortByPrice;
+const filteredHouses = computed(() => {
+  const filterText = input.value.toLowerCase().trim();
+  return props.houses.filter((house) => {
+    return (
+      house.location.street.toLowerCase().includes(filterText) ||
+      house.location.city.toLowerCase().includes(filterText) ||
+      house.location.zip.toLowerCase().includes(filterText) ||
+      house.price.toString().includes(filterText) ||
+      house.size.toString().includes(filterText)
+    );
+  });
 });
 
-const sortBySize = computed(() => {
-  return store.sortBySize;
+const sortedHouses = computed(() => {
+  const sorted = [...filteredHouses.value]; // Create a new array to avoid mutating the computed property
+  if (sortBy.value === "price") {
+    sorted.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+  } else if (sortBy.value === "size") {
+    sorted.sort((a, b) => parseInt(a.size) - parseInt(b.size));
+  }
+  return sorted;
 });
+
+const count = computed(() => {
+  return filteredHouses.value.length;
+});
+
+function sortByPrice() {
+  sortBy.value = "price";
+}
+
+function sortBySize() {
+  sortBy.value = "size";
+}
 </script>
 
 <template>
@@ -53,10 +69,10 @@ const sortBySize = computed(() => {
       </div>
     </div>
     <div class="container-count">
-      <h2>{{ count }} results founds</h2>
+      <h2>{{ count }} results found</h2>
     </div>
 
-    <div v-for="house in houses" :key="house.id" class="container-card">
+    <div v-for="house in sortedHouses" :key="house.id" class="container-card">
       <!-- router link commented as I want to use it in Card component -->
       <!-- <router-link :to="{ path: `/house/${house.id}` }" class="text-decoration"> -->
       <Card :house="house" />
@@ -97,6 +113,8 @@ const sortBySize = computed(() => {
   display: flex;
   flex-direction: row;
   padding: 10px 20px 10px 20px;
+  width: 100%;
+  justify-content: space-between;
 }
 
 input {
@@ -115,10 +133,6 @@ input {
 .align-right {
   justify-items: end;
 }
-/* img{
-    width:50px;
-    height: 50px;
-} */
 
 .container-buttons {
   width: 80vw;

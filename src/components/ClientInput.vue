@@ -30,10 +30,11 @@ if (houseSelected) {
 
 
 <template>
-  <div class="container">
+  <div class="container-clientinput">
     <div class="form-wrapper">
       <FormKit type="form" @submit="formSubmitted" :value="initialValues">
         <FormKit
+          label-class="$reset labelvisual"
           type="text"
           name="streetName"
           id="streetName"
@@ -159,95 +160,21 @@ if (houseSelected) {
         />
         <!-- <Button name="POST" /> -->
       </FormKit>
-
-      <!-- <form @submit.prevent="onSubmit">
-      <label>Street name*</label>
-      <input
-        type="text"
-        placeholder="Enter the street name"
-        name="streetName"
-      />
-
-      <div>
-        <div>
-          <label>House number*</label>
-          <input
-            type="text"
-            placeholder="Enter house number"
-            name="houseNumber"
-          />
-        </div>
-
-        <div>
-          <label>Addition (optional)</label>
-          <input type="text" placeholder="e.g A" name="numberAddition" />
-        </div>
-      </div>
-
-      <label>Postal code*</label>
-      <input type="text" placeholder="e.g 1000AA" name="zip" />
-
-      <label>City*</label>
-      <input type="text" placeholder="e.g Utrecht" name="city" />
-
-      <label>Upload picture (PNG or JPG)*</label>
-      <input type="file" @change="onFileChanged" name="image" ref="fileInput" />
-
-      <label>Price*</label>
-      <input type="text" placeholder="e.g E150000" name="price" />
-
-      <div>
-        <div>
-          <label>Size*</label>
-          <input type="text" placeholder="e.g 60m2" name="size" />
-        </div>
-
-        <div>
-          <label>Garage*</label>
-          <select name="hasGarage">
-            <option disabled value="">Select</option>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <div>
-          <label>Bedrooms*</label>
-          <input type="text" placeholder="Enter amout" name="bedrooms" />
-        </div>
-
-        <div>
-          <label>Bathrooms*</label>
-          <input type="text" placeholder="Enter amout" name="bathrooms" />
-        </div>
-      </div>
-
-      <label>Construction data*</label>
-      <input type="text" placeholder="e.g 1990" name="constructionYear" />
-
-      <label>Description*</label>
-      <textarea
-        type="text"
-        placeholder="Enter description"
-        name="description"
-      ></textarea>
-
-      <button type="submit">POST</button>
-    </form> -->
     </div>
   </div>
 </template>
 
 <style scoped>
-.container {
+.container-clientinput {
   display: flex;
-  width: 80vw;
+  width: 100%;
+  justify-content: center;
 }
 .form-wrapper {
   display: flex;
   align-self: center;
-
+  width: fit-content;
+  justify-content: center;
   margin-bottom: 5rem;
 }
 </style>

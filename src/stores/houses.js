@@ -12,38 +12,6 @@ export const useHouseStore = defineStore("house", {
     image: {},
   }),
   getters: {
-    getHouses(state) {
-      return state.houses;
-    },
-
-    count: (state) => state.houses.length,
-
-    // slice makes a copy of the state array to avoid modifying the state //
-    sortByPrice: (state) => {
-      state.houses = state.houses.sort(
-        (a, b) => parseInt(a.price) - parseInt(b.price)
-      );
-      return state.houses;
-    },
-
-    sortBySize: (state) => {
-      state.houses = state.houses.sort(
-        (a, b) => parseInt(a.size) - parseInt(b.size)
-      );
-      return state.houses;
-    },
-
-    filter: (state) => {
-      state.houses = houses.value((house) => {
-        return (
-          house.location
-            .streetName()
-            .toLowerCase()
-            .indexOf(search.value.toLowerCase()) != -1
-        );
-      });
-    },
-
     getFile(state) {
       return state.file;
     },
@@ -60,7 +28,6 @@ export const useHouseStore = defineStore("house", {
         const response = await fetch(houses_url, requestOptions);
         const data = await response.json();
         this.houses = data;
-        // console.log("data", data);
       } catch (error) {
         alert(error);
         console.log(error);
@@ -83,9 +50,7 @@ export const useHouseStore = defineStore("house", {
           `${houses_url}/${houseId}/upload`,
           requestOptionsUpload
         );
-        console.log("response upload", response);
         const data = await response.text();
-        console.log("data upload", data);
       } catch (error) {
         alert(error);
         console.log(error);
@@ -105,7 +70,6 @@ export const useHouseStore = defineStore("house", {
         console.log("reseponse create", response);
         const data = await response.text();
         const parsedData = JSON.parse(data);
-        console.log("data", parsedData);
 
         // add newly created house
         if (parsedData.id != undefined) {
@@ -125,7 +89,6 @@ export const useHouseStore = defineStore("house", {
     },
 
     async delete(houseId) {
-      console.log("delete here");
       var requestOptionsDelete = {
         method: "DELETE",
         headers: myHeaders,
@@ -136,14 +99,10 @@ export const useHouseStore = defineStore("house", {
         `${houses_url}/${houseId}`,
         requestOptionsDelete
       );
-      console.log("response", response);
       const data = await response.text();
-      console.log("data", data);
     },
 
     async editHouse(houseId, formData) {
-      console.log("houseID House", houseId);
-
       for (var pair of formData.entries()) {
         console.log(pair[0] + ", " + pair[1]);
       }
@@ -159,9 +118,7 @@ export const useHouseStore = defineStore("house", {
           `${houses_url}/${houseId}`,
           requestOptionsEdit
         );
-        console.log("response", response);
         const data = await response.text();
-        console.log("data", data);
 
         // const parsedData = JSON.parse(data);
         // console.log("parsedData", parsedData);

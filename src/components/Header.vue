@@ -39,6 +39,7 @@ const props = defineProps({
 .title {
   font-weight: bold;
   align-self: center;
+  font-size: 25px;
 }
 
 .container-right {

@@ -28,11 +28,11 @@ const houseSelected = computed(() => {
   return store.houses.find((h) => h.id === houseId);
 });
 
-const filteredHouses = computed(() => {
-  return houses.value.filter((house) => {
-    return house.location.city === houseSelected?.location?.city;
-  });
-});
+// const recommandedHouses = computed(() => {
+//   return houses.value.filter((house) => {
+//     return house.location.city === houseSelected?.location?.city;
+//   });
+// });
 
 const { reveal, onConfirm } = createConfirmDialog(Modal);
 
@@ -44,43 +44,54 @@ onConfirm(() => {
 
 
 <template>
-  <div
-    v-if="!!houseSelected"
-    class="container"
-    :style="{
-      'background-image': `url(${houseSelected.image})`,
-    }"
-  >
-    <div class="container-top">
-      <Header title="">
-        <template #left> <GoBackWhite /></template>
-        <template #right>
-          <div v-if="houseSelected.madeByMe === true">
-            <router-link :to="{ path: `/house/${houseSelected.id}/edit` }">
+  <div class="container-background">
+    <div
+      v-if="!!houseSelected"
+      class="container"
+      :style="{
+        'background-image': `url(${houseSelected.image})`,
+      }"
+    >
+      <div class="container-top">
+        <Header title="">
+          <template #left> <GoBackWhite /></template>
+          <template #right>
+            <div v-if="houseSelected.madeByMe === true">
+              <router-link :to="{ path: `/house/${houseSelected.id}/edit` }">
+                <img
+                  src="@/assets/ic_edit_white@3x.png"
+                  style="width: 20px"
+                  alt=""
+                />
+              </router-link>
               <img
-                src="@/assets/ic_edit_white@3x.png"
+                src="@/assets/ic_delete_white@3x.png"
                 style="width: 20px"
                 alt=""
+                @click="reveal"
               />
-            </router-link>
-            <img
-              src="@/assets/ic_delete_white@3x.png"
-              style="width: 20px"
-              alt=""
-              @click="reveal"
-            />
-          </div>
-        </template>
-      </Header>
-      <DialogsWrapper />
+            </div>
+          </template>
+        </Header>
+        <DialogsWrapper />
+      </div>
+      <Details v-if="!!houseSelected" :houseSelected="houseSelected" />
+      <!-- <Recommanded
+      v-if="!!houseSelected"
+      :recommandedHouses="recommandedHouses"
+    /> -->
+      <NavBar :active="'home'" />
     </div>
-    <Details v-if="!!houseSelected" :houseSelected="houseSelected" />
-    <Recommanded v-if="!!filteredHouses" :filteredHouses="filteredHouses" />
-    <NavBar :active="'home'" />
   </div>
 </template>
 
+
 <style scoped>
+.container-background {
+  background-color: white;
+  height: 100vh;
+  z-index: -5;
+}
 .container {
   width: 100vw;
   background-repeat: no-repeat;

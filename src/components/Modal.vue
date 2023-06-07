@@ -2,11 +2,16 @@
 <template>
   <div class="modal-container">
     <div class="modal-body">
-      <h2>Are you sure you want to delete this listing?</h2>
-      <h2>This action cannot be undone.</h2>
+      <h2>Delete listing</h2>
+      <h3>Are you sure you want to delete this listing?</h3>
+      <h3>This action cannot be undone.</h3>
       <div class="modal-action">
-        <button class="modal-button" @click="emit('confirm')">Confirm</button>
-        <button class="modal-button" @click="emit('cancel')">Cancel</button>
+        <button class="modal-button orange" @click="emit('confirm')">
+          Confirm
+        </button>
+        <button class="modal-button grey" @click="emit('cancel')">
+          Cancel
+        </button>
       </div>
     </div>
   </div>
@@ -33,7 +38,6 @@ const emit = defineEmits(["confirm", "cancel"]);
 }
 .modal-body {
   background-color: #fff;
-  border: 2px solid #74a2cf;
   border-radius: 10px;
   text-align: center;
   padding: 20px 40px;
@@ -46,14 +50,26 @@ const emit = defineEmits(["confirm", "cancel"]);
   flex-direction: row;
   gap: 40px;
   justify-content: center;
+  margin-top: 10px;
 }
 .modal-button {
   cursor: pointer;
   height: 30px;
   padding: 0 25px;
-  border: 2px solid #74a2cf;
   border-radius: 5px;
-  background-color: #80b2e4;
   color: #fff;
+}
+.grey {
+  background-color: rgb(74, 75, 76);
+}
+
+.orange {
+  background-color: rgb(235, 84, 64);
+}
+
+h3 {
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 </style>

@@ -52,8 +52,10 @@ onCancel(() => {
             </div>
             <DialogsWrapper />
           </div>
-          <p>€ {{ house.price }}</p>
-          <p>{{ house.location.zip }} {{ house.location.city }}</p>
+          <p class="container-second-lign">€ {{ house.price }}</p>
+          <p class="container-third-lign">
+            {{ house.location.zip }} {{ house.location.city }}
+          </p>
           <div class="container-fourth-lign">
             <img
               src="@/assets/ic_bed@3x.png"
@@ -117,7 +119,8 @@ onCancel(() => {
 
 .container-details,
 p {
-  margin: 5px;
+  margin: 0px;
+  margin-right: 2px;
 }
 
 .container-first-lign {
@@ -126,6 +129,7 @@ p {
   flex-wrap: nowrap;
   width: 100%;
   justify-content: space-between;
+  height: 25%;
 }
 
 .align-right {
@@ -156,15 +160,27 @@ p {
   border: none;
   border-radius: 10px;
 }
+.container-second-lign {
+  height: 25%;
+}
 
+.container-third-lign {
+  height: 25%;
+}
 .container-fourth-lign {
   display: flex;
   flex-direction: row;
   padding-top: 10px;
+  height: 25%;
 }
 
 .container-fourth-lign,
 p {
+  padding-left: 5px;
+}
+
+.container-fourth-lign,
+img {
   padding-left: 5px;
 }
 </style>
